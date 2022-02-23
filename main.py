@@ -45,7 +45,7 @@ class Recognising:
             self._descriptor = []
             self._predict_arg = []
 
-            self.read_file()  # to musi być ostatnie @@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            self.read_file()
 
     def create(self, name, no, bnd):
         self._image = Path(f'./test/images/{name}')
@@ -62,11 +62,9 @@ class Recognising:
             size = root.find('size')
             self._shape = [size.find('width').text, size.find('height').text]
             for i in range(len(self._bnd)):
-                if int(self._shape[0]) * 1 / 10 > self._bnd[i][1] - self._bnd[i][0] or int(self._shape[1]) * 1 / 10 > self._bnd[i][3] - self._bnd[i][2]:
-                    self._bnd[i]=[0,1,0,1]
-
-
-
+                if int(self._shape[0]) * 1 / 10 > self._bnd[i][1] - self._bnd[i][0] or int(self._shape[1]) * 1 / 10 > \
+                        self._bnd[i][3] - self._bnd[i][2]:
+                    self._bnd[i] = [0, 1, 0, 1]
 
     def read_file(self):
         if self._path_to_file.is_file():
@@ -103,7 +101,6 @@ def make_folders(filepath):
         names = []
         for child in root.findall('object'):
             names.append(child.find('name').text)
-        # print(names)
 
         if 'speedlimit' in names:
 
@@ -129,7 +126,6 @@ def make_folders(filepath):
 
 
 def learning(elements: list):
-
     dictionarySize = 100
     sift = cv2.SIFT_create()
 
@@ -146,7 +142,7 @@ def learning(elements: list):
 
     # dictionary created
     dictionary = BOW.cluster()
-    np.save("dictionary.npy",dictionary)   #odkomentować tylko za pierwszym uruchomieniem programu
+    #np.save("dictionary.npy",dictionary)   #odkomentować tylko za pierwszym uruchomieniem programu
 
 
 def extracting(elements: list):
@@ -173,10 +169,10 @@ def learn(elements: list):
     labels = []
     classify = RandomForestClassifier(n_estimators=100)
     for elem in elements:
-        #if elem._number_of_objects > 0:
-            for i in range(elem._number_of_objects):
-                labels.append(elem._type[i])
-                descriptors = np.vstack((descriptors, elem._descriptor[i]))
+        # if elem._number_of_objects > 0:
+        for i in range(elem._number_of_objects):
+            labels.append(elem._type[i])
+            descriptors = np.vstack((descriptors, elem._descriptor[i]))
     classify.fit(descriptors[1:], labels)
     return classify
 
@@ -184,7 +180,7 @@ def learn(elements: list):
 def prediction_img(elements: list, op):
     for elems in elements:
         for i in range(elems._number_of_objects):
-                elems._predict_arg.append(op.predict(elems._descriptor[i]))
+            elems._predict_arg.append(op.predict(elems._descriptor[i]))
 
 
 def terminal_serve():
@@ -208,7 +204,6 @@ def terminal_serve():
     return list_of_input
 
 
-
 def output(out):
     for x in out:
         if len(x._predict_arg) != 0:
@@ -219,7 +214,6 @@ def output(out):
                     print("speedlimit")
         else:
             print("other")
-
 
 
 if __name__ == '__main__':
