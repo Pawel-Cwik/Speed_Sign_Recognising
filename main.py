@@ -8,8 +8,32 @@ from pathlib import PosixPath, Path
 import sklearn
 from sklearn.ensemble import RandomForestClassifier
 
+# TODO Jakość kodu i raport (4/4)
+
+
+# TODO Skuteczność klasyfikacji 0.0 (0/4)
+# TODO [0.00, 0.50) - 0.0
+# TODO [0.50, 0.55) - 0.5
+# TODO [0.55, 0.60) - 1.0
+# TODO [0.60, 0.65) - 1.5
+# TODO [0.65, 0.70) - 2.0
+# TODO [0.70, 0.75) - 2.5
+# TODO [0.75, 0.80) - 3.0
+# TODO [0.80, 0.85) - 3.5
+# TODO [0.85, 1.00) - 4.0
+
+# stderr:
+# Traceback (most recent call last):
+#   File "main.py", line 233, in <module>
+#     learning(list_of_elements)
+#   File "main.py", line 144, in learning
+#     dictionary = BOW.cluster()
+# cv2.error: OpenCV(4.5.4) /tmp/pip-req-build-th1mncc2/opencv/modules/features2d/src/bagofwords.cpp:94: error: (-215:Assertion failed) !descriptors.empty() in function 'cluster'
+
+# TODO Skuteczność detekcji (/2)
 
 def check_folders():
+# TODO Te katalogi juz powinny istniec.
     if os.path.exists("../train"):
 
         if not os.path.exists("../train/annotations"):
@@ -161,6 +185,7 @@ def extracting(elements: list):
             if descriptor is not None:
                 ele._descriptor.append(descriptor)
             else:
+                # TODO Lepiej w ogole pominac takie przypadki.
                 ele._descriptor.append(np.zeros((1, 100)))
 
 
@@ -224,7 +249,7 @@ if __name__ == '__main__':
     # if ann_path.is_dir():
     #     for file in list(ann_path.glob('*.xml')):
     #         make_folders(file)
-
+# TODO Zla sciezka.
 dict_path = Path("../train/annotations")
 if dict_path.is_dir():
     for file in list(dict_path.glob('*.xml')):
