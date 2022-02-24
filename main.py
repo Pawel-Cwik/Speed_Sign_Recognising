@@ -10,25 +10,25 @@ from sklearn.ensemble import RandomForestClassifier
 
 
 def check_folders():
-    if os.path.exists("train"):
+    if os.path.exists("../train"):
 
-        if not os.path.exists("train/annotations"):
-            os.mkdir("train/annotations")
-            os.mkdir("train/images")
+        if not os.path.exists("../train/annotations"):
+            os.mkdir("../train/annotations")
+            os.mkdir("../train/images")
     else:
-        os.mkdir("train")
-        os.mkdir("train/annotations")
-        os.mkdir("train/images")
+        os.mkdir("../train")
+        os.mkdir("../train/annotations")
+        os.mkdir("../train/images")
 
-    if os.path.exists("test"):
+    if os.path.exists("../test"):
 
-        if not os.path.exists("test/annotations"):
-            os.mkdir("test/annotations")
-            os.mkdir("test/images")
+        if not os.path.exists("../test/annotations"):
+            os.mkdir("../test/annotations")
+            os.mkdir("../test/images")
     else:
-        os.mkdir("test")
-        os.mkdir("test/annotations")
-        os.mkdir("test/images")
+        os.mkdir("../test")
+        os.mkdir("../test/annotations")
+        os.mkdir("../test/images")
 
 
 # 0 - speedlimit
@@ -48,8 +48,8 @@ class Recognising:
             self.read_file()
 
     def create(self, name, no, bnd):
-        self._image = Path(f'./test/images/{name}')
-        self._path_to_file = Path(f'./test/annotations/{name.rstrip(".png")}.xml')
+        self._image = Path(f'../test/images/{name}')
+        self._path_to_file = Path(f'../test/annotations/{name.rstrip(".png")}.xml')
         self._bnd = [list(map(int, i)) for i in bnd]
         self._number_of_objects = no
         self._predict_arg = []
@@ -105,23 +105,23 @@ def make_folders(filepath):
         if 'speedlimit' in names:
 
             if iter_speedlimit < 3:
-                shutil.copy(f'{filepath}', "./train/annotations")
-                shutil.copy(f'../images/{filepath.name.rstrip(".xml")}.png', "./train/images")
+                shutil.copy(f'{filepath}', "../train/annotations")
+                shutil.copy(f'../images/{filepath.name.rstrip(".xml")}.png', "../train/images")
                 iter_speedlimit = iter_speedlimit + 1
 
             else:
-                shutil.copy(f'{filepath}', "./test/annotations")
-                shutil.copy(f'../images/{filepath.name.rstrip(".xml")}.png', "./test/images")
+                shutil.copy(f'{filepath}', "../test/annotations")
+                shutil.copy(f'../images/{filepath.name.rstrip(".xml")}.png', "../test/images")
                 iter_speedlimit = 0
 
         else:
             if iter_other < 3:
-                shutil.copy(f'{filepath}', "./train/annotations")
-                shutil.copy(f'../images/{filepath.name.rstrip(".xml")}.png', "./train/images")
+                shutil.copy(f'{filepath}', "../train/annotations")
+                shutil.copy(f'../images/{filepath.name.rstrip(".xml")}.png', "../train/images")
                 iter_other = iter_other + 1
             else:
-                shutil.copy(f'{filepath}', "./test/annotations")
-                shutil.copy(f'../images/{filepath.name.rstrip(".xml")}.png', "./test/images")
+                shutil.copy(f'{filepath}', "../test/annotations")
+                shutil.copy(f'../images/{filepath.name.rstrip(".xml")}.png', "../test/images")
                 iter_other = 0
 
 
@@ -142,7 +142,7 @@ def learning(elements: list):
 
     # dictionary created
     dictionary = BOW.cluster()
-    #np.save("dictionary.npy",dictionary)   #odkomentować tylko za pierwszym uruchomieniem programu
+    np.save("dictionary.npy",dictionary)   #odkomentować tylko za pierwszym uruchomieniem programu
 
 
 def extracting(elements: list):
@@ -217,15 +217,15 @@ def output(out):
 
 
 if __name__ == '__main__':
-    ann_path = Path("../annotations")
-    check_folders()
+    # ann_path = Path("../annotations")
+    # check_folders()
 
     list_of_elements = []
     # if ann_path.is_dir():
     #     for file in list(ann_path.glob('*.xml')):
     #         make_folders(file)
 
-dict_path = Path("./train/annotations")
+dict_path = Path("../train/annotations")
 if dict_path.is_dir():
     for file in list(dict_path.glob('*.xml')):
         list_of_elements.append(Recognising(Path(file)))
