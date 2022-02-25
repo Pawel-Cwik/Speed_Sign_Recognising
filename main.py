@@ -11,7 +11,7 @@ from sklearn.ensemble import RandomForestClassifier
 # TODO Jakość kodu i raport (4/4)
 
 
-# TODO Skuteczność klasyfikacji 0.0 (0/4)
+# TODO Skuteczność klasyfikacji 0.925 (4/4)
 # TODO [0.00, 0.50) - 0.0
 # TODO [0.50, 0.55) - 0.5
 # TODO [0.55, 0.60) - 1.0
@@ -22,15 +22,9 @@ from sklearn.ensemble import RandomForestClassifier
 # TODO [0.80, 0.85) - 3.5
 # TODO [0.85, 1.00) - 4.0
 
-# stderr:
-# Traceback (most recent call last):
-#   File "main.py", line 258, in <module>
-#     learning(list_of_elements)
-#   File "main.py", line 161, in learning
-#     image = full_image[ele._bnd[i][2]:ele._bnd[i][3], ele._bnd[i][0]:ele._bnd[i][1], :]
-# TypeError: 'NoneType' object is not subscriptable
-
 # TODO Skuteczność detekcji (/2)
+
+# TODO Poprawki po terminie. (-1)
 
 def check_folders():
 # TODO Te katalogi juz powinny istniec.
@@ -61,8 +55,8 @@ class Recognising:
     def __init__(self, path_to_file=None):
         self._path_to_file = path_to_file
         if self._path_to_file != None:
-            # TODO Zla sciezka.
-            self._image = Path(f'../images/{path_to_file.name.rstrip(".xml")}.png')
+            # TODO Nadal zla sciezka! Poprawione przeze mnie. (-1)
+            self._image = Path(f'../train/images/{path_to_file.name.rstrip(".xml")}.png')
             self._type = []
             self._bnd = []
             self._shape = []
