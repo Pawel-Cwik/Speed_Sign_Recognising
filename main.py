@@ -24,11 +24,11 @@ from sklearn.ensemble import RandomForestClassifier
 
 # stderr:
 # Traceback (most recent call last):
-#   File "main.py", line 233, in <module>
+#   File "main.py", line 258, in <module>
 #     learning(list_of_elements)
-#   File "main.py", line 144, in learning
-#     dictionary = BOW.cluster()
-# cv2.error: OpenCV(4.5.4) /tmp/pip-req-build-th1mncc2/opencv/modules/features2d/src/bagofwords.cpp:94: error: (-215:Assertion failed) !descriptors.empty() in function 'cluster'
+#   File "main.py", line 161, in learning
+#     image = full_image[ele._bnd[i][2]:ele._bnd[i][3], ele._bnd[i][0]:ele._bnd[i][1], :]
+# TypeError: 'NoneType' object is not subscriptable
 
 # TODO Skuteczność detekcji (/2)
 
@@ -61,6 +61,7 @@ class Recognising:
     def __init__(self, path_to_file=None):
         self._path_to_file = path_to_file
         if self._path_to_file != None:
+            # TODO Zla sciezka.
             self._image = Path(f'../images/{path_to_file.name.rstrip(".xml")}.png')
             self._type = []
             self._bnd = []
